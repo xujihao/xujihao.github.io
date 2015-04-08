@@ -10,19 +10,19 @@
 			this.attack=this.attack||1;
 			this.release=this.release||1;
 			var envelope=this.context.createGain();
-			envelope.gain.setValueAtTime(this.volume,this.context.currentTime);
+			//envelope.gain.setValueAtTime(this.volume,this.context.currentTime);
 			envelope.connect(this.context.destination);
 
-			envelope.gain.setValueAtTime(0,this.context.currentTime);
-			envelope.gain.setTargetAtTime(this.volume,this.context.currentTime,this.attack/1000);
+			//envelope.gain.setValueAtTime(0,this.context.currentTime);
+			//envelope.gain.setTargetAtTime(this.volume,this.context.currentTime,this.attack/1000);
 			if(this.release){
 				envelope.gain.setTargetAtTime(0,this.context.currentTime+this.attack/1000,this.release/1000);
-				setTimeout(function(){
-					osc.stop();
-					osc.disconnect(envelope);
-					envelope.gain.cancelScheduledValues(tones.context.currentTime);
-					envelope.disconnect(tones.context.destination);
-				},this.attack*10+this.release*10);
+				// setTimeout(function(){
+				// 	osc.stop();
+				// 	osc.disconnect(envelope);
+				// 	envelope.gain.cancelScheduledValues(tones.context.currentTime);
+				// 	envelope.disconnect(tones.context.destination);
+				// },this.attack*10+this.release*10);
 			}
 
 			var osc=this.context.createOscillator();
