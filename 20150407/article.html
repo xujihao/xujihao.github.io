@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
@@ -74,7 +74,7 @@
 						osc.frequency.setValueAtTime(freq,this.context.currentTime);
 						osc.type=this.type;
 						osc.connect(envelope);
-						osc.start();
+						osc.start(0);
 					},
 
 					play:function(freqOrNote,octave){
@@ -94,11 +94,103 @@
 			<p>
 			需要解释的应该只有两个函数：<a href="https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/setValueAtTime">setValueAtTime()</a>及<a href="https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/setTargetAtTime">setTargetAtTime()</a>,setValueAtTime(value,startTime)表示在startTime这个时间点上将值设置为value的值，setTargetAtTime(value,startTime,timeConstant)表示从startTime那刻起，经过timeConstant时间（其实不是真的经过timeConstant那么长时间，总之是timeConstant越大，经过时间越长，这么写为了便于理解）后，将值变成value的值。因为钢琴敲击发声之后，声音不是立即就消失的，所以我们必须要用到setTargetAtTime来设置钢琴声音消失的时间。this.map的代码我没写出来，可以直接去项目的github地址查看，它其实就是一个数组，用来表示每个键及其对应的频率。
 			</p>
+			<p>浏览器兼容性：前端开发，避免不了的流量器兼容，不幸的是ie11都没有对audiocontext提供支持，safari也没有，firefox倒是提供支持了，但是发不出声音啦，具体原因还没来得及研究，不过chorme及opera浏览器上都可以正常运行，也算是有点安慰了。</p>
 			<h3>钢琴创建</h3>
-			<p>钢琴创建的代码就不列出来了，感兴趣的话可以去<a href="http://xujihao.github.io/20150407/index.html">github</a>上查看，这里只说下思想</p>
-			<p>
-			因为要求是用户选择创建哪几个键，由于懒惰，就想了个简单死板的方法，先把所有的钢琴键创建出来，当用户选择创建某个区间的钢琴键时，直接取出符合条件的，通过每个键的pitch属性,A0=21,以此类推。如果第一个或最后一个键时黑键，则将其隐藏。然后替换原来的键即可。
+			<p>基本思想：因为要求是用户选择创建哪几个键，由于懒惰，就想了个简单死板的方法，先把所有的钢琴键创建出来，当用户选择创建某个区间的钢琴键时，直接取出符合条件的，通过每个键的pitch属性,A0=21,以此类推。如果第一个或最后一个键时黑键，则将其隐藏。然后替换原来的键即可。
 			</p>
+			<p>直接看代码吧</p>
+			<pre>
+			<code>
+			function createKey(){
+				var arr=['C','D','E','F','G','A','B'],
+					strHtml='',
+					curChar='',
+					nextChar='',
+					pitch=12;
+				for(var i=0;i&lt=8;i++){
+					for(var j=0;j&lt7;j++){
+						if(j!=2&&j!=6){
+							curChar=arr[j];
+							nextChar=arr[j+1];
+							strHtml+='&ltdiv id="note-'+curChar+i+'" class="key-white note-'+curChar+'" data-pitch="'+pitch+'" data-note="'+curChar+i+'">&ltspan&gt'+curChar+i+'&lt/span&gt&lt/div&gt';
+							pitch++;
+							strHtml+='&ltdiv id="note-'+nextChar+'b'+i+'" class="key-black note-'+nextChar+'" data-pitch="'+pitch+'" data-note="'+nextChar+'b'+i+'"&gt&lt/div&gt';
+							pitch++;
+						}
+						else{
+							curChar=arr[j];
+							strHtml+='&ltdiv id="note-'+curChar+i+'" class="key-white note-'+curChar+'" data-pitch="'+pitch+'" data-note="'+curChar+i+'"&gt&ltspan&gt'+curChar+i+'&lt/span&gt&lt/div&gt';
+							pitch++;
+						}
+					}	
+				}
+				document.querySelector('.container').innerHTML=strHtml;
+			}
+			function calcPosition(){
+				var keywhites=$('.key-white'),
+					keyblacks=$('.key-black'),
+					clientWidth=document.body.clientWidth,
+					nums=keywhites.length;
+				var keysWidth=clientWidth-nums,
+					width=parseInt(keysWidth/nums),
+					bwidth=parseInt(0.8*width);
+				for(var t=0;t&ltnums;t++){
+					keywhites[t].style.width=width+'px';
+					keywhites[t].style.height=5*width+'px';
+					keywhites.eq(t).find('span').css({
+						marginTop:4.3*width,
+						fontSize:width/2,
+						marginLeft:width/5
+					})
+				}
+				for(var t=0;t&ltkeyblacks.length;t++){
+					keyblacks[t].style.width=bwidth+'px';
+					keyblacks[t].style.height=3*width+'px';
+					var count=keyblacks.eq(t).prevAll('.key-white').length;
+					keyblacks.eq(t).css('left',count*(width+1)-bwidth/2);
+				}	
+			}
+			function createKeyboard(start,end){
+				createKey();
+				var tempstart=parseInt(start),
+					tempend=parseInt(end);
+				if(isNaN(tempstart)){
+					start=reverseRelation[start];
+				}
+				if(isNaN(tempend)){
+					end=reverseRelation[end];
+				}
+				var keys=$('.container&gtdiv');
+				for(var i=0;i&ltkeys.length;i++){
+					var pitch=keys.eq(i).data('pitch');
+					if(pitch&gt=start&&pitch&lt=end){
+						keys.eq(i).addClass('visible');
+					}
+				}
+				var keys=$('.container&gtdiv.visible'),
+				html='';
+				for(var i=0;i&ltkeys.length;i++){
+					html+=keys.eq(i).prop('outerHTML');
+				}
+				$('.container').html(html);
+				calcPosition();
+				if($('.container&gtdiv:last-child').hasClass('key-black')){
+					$('.container&gtdiv:last-child').hide();
+				}
+				if($('.container&gtdiv:first-child').hasClass('key-black')){
+					$('.container&gtdiv:first-child').hide();
+				}
+			}
+			createKeyboard(36,96);
+			window.onresize=function(){
+				calcPosition();
+			};
+			</code>
+			</pre>
+			<p>
+			代码写的有点不伦不类的，因为之前是打算用原生JavaScript来写的，后来感觉挺费劲的就用jQuery了。代码中的relation及reverserelation都是数组，表示钢琴的键值及数字的对应关系。
+			</p>
+			<p>结语：感觉要写好一篇技术文章太难了，不卑不亢吧，继续加油吧！</p>
 		</article>
 		<nav class="right"></nav>
 	</div>
