@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Web钢琴的创建</title>
+	<style>
+		html,body,div{
+			margin:0;
+			padding: 0;
+			font-family: 微软雅黑;
+		}
+		nav{
+			display: table-cell;
+			width:150px;
+			padding:50px 1%;
+			background: #262432;
+			background: -moz-linear-gradient(left,#222,#000,#222,#000,#222);
+			background: -webkit-linear-gradient(left,#222,#000,#222,#000,#222);
+			background: linear-gradient(left,#222,#000,#222,#000,#222);
+		}
+		article{
+			display: table-cell;
+			padding: 50px;
+			background: -moz-radial-gradient(#fff,#fefefe,#fbfbfb);
+			background: -webkit-radial-gradient(#fff,#fefefe,#fbfbfb);
+			background: radial-gradient(#fff,#fefefe,#fbfbfb);
+		}
+		p{
+			text-indent: 2em;
+		}
+		pre{
+			white-space: pre;
+			font-family: Menlo,Monaco,Consolas,monospace;
+			font-size: 16px;
+			line-height: 1.5;
+			background-color:#f5f5f5;
+			border: 1px solid #e3e3e3;
+			box-shadow: 0 1px 1px rgba(0,0,0,0.05) inset;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<nav class="left">
+
+		</nav>
+		<article>
+			<h3>钢琴发声</h3>
+			<p>最近才发现的，原来Github有个<a href="https://pages.github.com/">Github Page</a>这么个东西，真是太好了，本来还打算买个空间注册个域名什么的（看了下，不便宜），这下好了，可以在写完项目后直接在Github上写博客，关键是这个是没有限制的，想写成啥样，随意发挥。哈哈哈，不要问我页面背景色为什么配得这么难看，我又不是设计师，呵呵，咱主要是锻炼技术</p>
+			<p>
+				Web钢琴，当然主要是用到Html5 audio api了，参考了下W3C及MDC里面关于audio api的介绍，主要用到了<a href="https://developer.mozilla.org/en-US/docs/Web/API/AudioContext">AudioContext</a>、<a href="https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/createGain">createGain()</a>、<a href="https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/createOscillator">createOscillator()</a>。AudioContext翻译过来音频上下文。createGain()会创建一个<a href="https://developer.mozilla.org/en-US/docs/Web/API/GainNode">GainNode</a>GainNode是用来控制音频的声音的音量。createOscillator()会创建一个<a href="https://developer.mozilla.org/en-US/docs/Web/API/GainNode">OscillatorNode</a>OscillatorNode代表一个周期性的波形，它主要生成一个不变的基调。
+
+			</p>
+			<p>程序员还是以代码说话吧,项目完整代码<a href="http://xujihao.github.io/20150407/index.html">前端钢琴</a></p>
+			<pre>
+			<code>
+			var tones={
+					context:new (window.AudioContext||window.webkitAudioContext)(),
+					attack:0,
+					release:300,
+					volume:1,
+					type:'sawtooth',
+
+					playFrequency:function(freq){
+						this.attack=this.attack||1;
+						this.release=this.release||1;
+						var envelope=this.context.createGain();
+						envelope.connect(this.context.destination);
+						if(this.release){
+							envelope.gain.setTargetAtTime(0,this.context.currentTime+this.attack/1000,this.release/1000);
+						}
+
+						var osc=this.context.createOscillator();
+						osc.frequency.setValueAtTime(freq,this.context.currentTime);
+						osc.type=this.type;
+						osc.connect(envelope);
+						osc.start();
+					},
+
+					play:function(freqOrNote,octave){
+						if(typeof freqOrNote ==='number'){
+							this.playFrequency(freqOrNote);
+						}
+						else if(typeof freqOrNote==='string'){
+							if(octave===null){
+								octave=4;
+							}
+							this.playFrequency(this.map[octave][freqOrNote.toLowerCase()]);
+						}
+					}
+				}
+			</code>
+			</pre>
+			<p>
+			需要解释的应该只有两个函数：<a href="https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/setValueAtTime">setValueAtTime()</a>及<a href="https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/setTargetAtTime">setTargetAtTime()</a>,setValueAtTime(value,startTime)表示在startTime这个时间点上将值设置为value的值，setTargetAtTime(value,startTime,timeConstant)表示从startTime那刻起，经过timeConstant时间（其实不是真的经过timeConstant那么长时间，总之是timeConstant越大，经过时间越长，这么写为了便于理解）后，将值变成value的值。因为钢琴敲击发声之后，声音不是立即就消失的，所以我们必须要用到setTargetAtTime来设置钢琴声音消失的时间。this.map的代码我没写出来，可以直接去项目的github地址查看，它其实就是一个数组，用来表示每个键及其对应的频率。
+			</p>
+			<h3>钢琴创建</h3>
+			<p>钢琴创建的代码就不列出来了，感兴趣的话可以去<a href="http://xujihao.github.io/20150407/index.html">github</a>上查看，这里只说下思想</p>
+			<p>
+			因为要求是用户选择创建哪几个键，由于懒惰，就想了个简单死板的方法，先把所有的钢琴键创建出来，当用户选择创建某个区间的钢琴键时，直接取出符合条件的，通过每个键的pitch属性,A0=21,以此类推。如果第一个或最后一个键时黑键，则将其隐藏。然后替换原来的键即可。
+			</p>
+		</article>
+		<nav class="right"></nav>
+	</div>
+	
+</body>
+</html>

@@ -500,14 +500,13 @@
 			window.onresize=function(){
 				calcPosition();
 			};
-			
 			$('.container').delegate('div','click',function(){
 				var note=$(this).data('note'),
 					key=note.substr(0,note.length-1).toLowerCase(),
 					octave=note[note.length-1],
 					type=$('input[name="waveform"]').val();
-				tones.type=type||'sawtooth';
-				tones.play(key,octave);
+				window.tones.type=type||'sawtooth';
+				window.tones.play(key,octave);
 			});
 			$('#create').bind('click',function(){
 				var from=$('#fromKey').val(),

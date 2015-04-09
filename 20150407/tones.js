@@ -29,7 +29,7 @@
 			osc.frequency.setValueAtTime(freq,this.context.currentTime);
 			osc.type=this.type;
 			osc.connect(envelope);
-			osc.start();
+			osc.start(0);
 		},
 
 		play:function(freqOrNote,octave){
