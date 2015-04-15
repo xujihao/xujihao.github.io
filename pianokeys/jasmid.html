@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<!-- saved from url=(0034)http://jsspeccy.zxdemo.org/jasmid/ -->
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+		<style type="text/css">
+			body{
+				background: #000;
+				margin:0;
+				padding: 0;
+			}
+			.container{
+				font-size:0;
+				min-width: 320px;
+				margin: 100px 0;
+			}
+			div.key-white{
+				font-size:0px;
+				background: #fff;
+				display: inline-block;
+				border-right: 1px solid black;
+				border-radius: 0 0 3px 3px;
+			}
+			div.key-black{
+				position: absolute;
+				background: #000;
+				z-index: 10;
+				top:100px;
+				left:0;
+			}
+			.key-white>span{
+				margin-top:135px;
+				float: left;
+				font-size: 12px;
+				font-family: 微软雅黑;
+			}
+			.key-white:hover,.key-black:hover{
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+		</div>
+		<!-- <a href="javascript:void(play('minute_waltz.mid'))">Chopin - Waltz Op.61 (Minute Waltz)</a> |
+		<a href="javascript:void(play('rachmaninov3.mid'))">Rachmaninov - Piano Concerto No.3 (First movement)</a> -->
+		<a href="javascript:void(play('001.mid'))">001</a>
+		<a href="javascript:void(play('002.mid'))">002</a>
+		<a href="javascript:void(play('003.mid'))">003</a>
+		<a href="javascript:void(play('004.mid'))">004</a>
+		<a href="javascript:void(play('005.mid'))">005</a>
+		<a href="javascript:void(play('006.mid'))">006</a>
+		<a href="javascript:void(play('007.mid'))">007</a>
+		<a href="javascript:void(play('008.mid'))">008</a>
+		<a href="javascript:void(play('009.mid'))">009</a>
+		<a href="javascript:void(play('010.mid'))">010</a>
+		<a href="javascript:void(play('4.mid'))">4</a>
+		<script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+		<script src="./jasmid_files/pianokeys.js"></script>
+		<script src="./jasmid_files/stream.js"></script>
+		<script src="./jasmid_files/midifile.js"></script>
+		<script src="./jasmid_files/replayer.js"></script>
+		<script src="./jasmid_files/synth.js"></script>
+		<script src="./jasmid_files/audio.js"></script>
+		
+		<script>
+			var audios=[];
+			function loadRemote(path, callback) {
+				var fetch = new XMLHttpRequest();
+				fetch.open('GET', path);
+				if(fetch.overrideMimeType)
+					fetch.overrideMimeType("text/plain; charset=x-user-defined");
+				fetch.onreadystatechange = function() {
+					if(this.readyState == 4 && this.status == 200) {
+						/* munge response into a binary string */
+						var t = this.responseText || "" ;
+						var ff = [];
+						var mx = t.length;
+						var scc= String.fromCharCode;
+						for (var z = 0; z < mx; z++) {
+							ff[z] = scc(t.charCodeAt(z) & 255);
+						}
+						callback(ff.join(""));
+					}
+				}
+				fetch.send();
+			}
+			
+			function play(file) {
+				loadRemote(file, function(data) {
+					for(var i=0;i<audios.length;i++){
+						audios[i].stop();
+						audios=[];
+						createKeyboard(21,108);
+					}
+					midiFile = MidiFile(data);
+					synth = Synth(44100);
+					replayer = Replayer(midiFile, synth);
+					audio = AudioPlayer(replayer);
+					audios.push(audio);
+				})
+			}
+
+			if(FileReader){
+				function cancelEvent(e){
+					e.stopPropagation();
+					e.preventDefault();
+				}
+				document.addEventListener('dragenter', cancelEvent, false);
+				document.addEventListener('dragover', cancelEvent, false);
+				document.addEventListener('drop', function(e){
+					cancelEvent(e);
+					for(var i=0;i<e.dataTransfer.files.length;++i){
+						var
+							file = e.dataTransfer.files[i]
+						;
+						if(file.type != 'audio/midi'){
+							continue;
+						}
+						var
+							reader = new FileReader()
+						;
+						reader.onload = function(e){
+							midiFile = MidiFile(e.target.result);
+							synth = Synth(44100);
+							replayer = Replayer(midiFile, synth);
+							audio = AudioPlayer(replayer);
+						};
+						reader.readAsBinaryString(file);
+					}
+				}, false);
+			}
+		</script>
+</body>
+</html>
