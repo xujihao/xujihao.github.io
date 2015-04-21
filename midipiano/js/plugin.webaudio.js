@@ -62,8 +62,8 @@
 			/// check whether the note exists
 			var channel = root.channels[channelId];
 			var instrument = channel.instrument;
-			//var bufferId = instrument + '' + noteId;
-			var bufferId='0'+noteId;
+			var bufferId = instrument + '' + noteId;
+			//var bufferId='0'+noteId;
 			var buffer = audioBuffers[bufferId];
 			if (!buffer) {
 // 				console.log(MIDI.GM.byId[instrument].id, instrument, channelId);
@@ -126,8 +126,8 @@
 			/// check whether the note exists
 			var channel = root.channels[channelId];
 			var instrument = channel.instrument;
-			//var bufferId = instrument + '' + noteId;
-			var bufferId='0'+noteId;
+			var bufferId = instrument + '' + noteId;
+			//var bufferId='0'+noteId;
 			var buffer = audioBuffers[bufferId];
 			if (buffer) {
 				if (delay < ctx.currentTime) {
