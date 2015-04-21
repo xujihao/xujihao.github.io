@@ -65,30 +65,31 @@
 <body>
 	<div class="container">
 	</div>
-		<a href="#">1</a>
-		<a href="#">2</a>
-		<a href="#">3</a>
-		<a href="#">4</a>
-		<a href="#">001</a>
-		<a href="#">002</a>
-		<a href="#">003</a>
-		<a href="#">004</a>
-		<a href="#">005</a>
-		<a href="#">006</a>
-		<a href="#">007</a>
-		<a href="#">008</a>
-		<a href="#">009</a>
-		<a href="#">010</a>
+		<button>1</button>
+		<button>2</button>
+		<button>3</button>
+		<button>4</button>
+		<button>001</button>
+		<button>002</button>
+		<button>003</button>
+		<button>004</button>
+		<button>005</button>
+		<button>006</button>
+		<button>007</button>
+		<button>008</button>
+		<button>009</button>
+		<button>010</button>
 	<script src="js/pianokeys.js"></script>
 	<script >
 		eventjs.add(window,'load',function(event){
 			MIDI.loadPlugin({
 				onsuccess:function(){
-					$('a').bind('click',function(e){
-						e.preventDefault();
+					$('button').bind('click',function(e){
+						//e.preventDefault();
 						//player.loadFile(song[$(this).text()],player.start);
 						player.loadFile('media//'+$(this).text()+'.mid',player.start);
 					});
+
 					player=MIDI.Player;
 					player.timeWarp=1;
 					//player.loadFile(song[songid++ % song.length],player.start);
