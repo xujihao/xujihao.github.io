@@ -206,57 +206,41 @@
 	<script >
 		dom.loadScript.add({
 			strictOrder:true,
-			urls:[{
-				url:'js/Base64.js',
-				onsuccess:function(){}
+			urls:[{url:'js/Base64.js'},
+			{url:'js/Base64binary.js'},
+			{url:'js/WebAudioAPI.js'},
+			{
+				url:'js/WebMIDIAPI.js'
 			},{
-				url:'js/Base64binary.js',
-				onsuccess:function(){}
+				url:'js/stream.js'
 			},{
-				url:'js/WebAudioAPI.js',
-				onsuccess:function(){}
+				url:'js/midifile.js'
 			},{
-				url:'js/WebMIDIAPI.js',
-				onsuccess:function(){}
+				url:'js/replayer.js'
 			},{
-				url:'js/stream.js',
-				onsuccess:function(){}
+				url:'js/audioDetect.js'
 			},{
-				url:'js/midifile.js',
-				onsuccess:function(){}
+				url:'js/gm.js'
 			},{
-				url:'js/replayer.js',
-				onsuccess:function(){}
+				url:'js/loader.js'
 			},{
-				url:'js/audioDetect.js',
-				onsuccess:function(){}
+				url:'js/plugin.audiotag.js'
 			},{
-				url:'js/gm.js',
-				onsuccess:function(){}
+				url:'js/plugin.webaudio.js'
 			},{
-				url:'js/loader.js',
-				onsuccess:function(){}
+				url:'js/plugin.webmidi.js'
 			},{
-				url:'js/plugin.audiotag.js',
-				onsuccess:function(){}
+				url:'js/player.js'
 			},{
-				url:'js/plugin.webaudio.js',
-				onsuccess:function(){}
-			},{
-				url:'js/plugin.webmidi.js',
-				onsuccess:function(){}
-			},{
-				url:'js/player.js',
-				onsuccess:function(){}
-			},{
-				url:'js/synesthesia.js',
-				onsuccess:function(){}
-			},{
-				url:'js/event.js',
-				onsuccess:function(){
-					window.onload=function(event){
+				url:'js/synesthesia.js'
+			}],
+			onsuccess:function(){
+				window.onload=function(event){
+
 						MIDI.loadPlugin({
 							onsuccess:function(){
+								$('.spinner').hide();
+								$('button').removeAttr('disabled');
 								$('button').bind('click',function(e){
 									//e.preventDefault();
 									//player.loadFile(song[$(this).text()],player.start);
@@ -296,13 +280,7 @@
 								})
 							}
 						});
-					}
-				}
-			}],
-			onsuccess:function(){
-				$('.spinner').hide();
-				$('button').removeAttr('disabled');
-				
+					};
 				var player;
 	// MIDI files from Disklavier World
 				var songid = 0;
