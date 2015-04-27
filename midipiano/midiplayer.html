@@ -176,8 +176,10 @@
 				display: none;
 			}
 			#play{
-				top:-120px;
 				display: none;
+			}
+			#circlebtn:hover{
+				cursor: pointer;
 			}
 		</style>
 </head>
@@ -270,14 +272,18 @@
 							onsuccess:function(){
 								$('.spinner').hide();
 								$('button').removeAttr('disabled');
-								$('circlebtn').show();
+								$('#circlebtn').show();
+								$('#plause').show();
 								$('button').bind('click',function(e){
 									player.loadFile('media//'+$(this).text()+'.mid',player.start);
-									$('#play').hide();
-									$('#plause').show();
+									$('#plause').hide();
+									$('#play').show();
 								});
 
 								$('#circlebtn').bind('click',function(){
+									if(!player.playing){
+										player.loadFile('media//'+'1.mid',player.start);
+									}
 									if($('#play').css('display')==='none'){
 										$('#plause').hide();
 										$('#play').show();
