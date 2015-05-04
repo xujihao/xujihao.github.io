@@ -3,7 +3,7 @@
 <head>
 	<title>MIDI Player</title>
 	<script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
-	
+	<script type="text/javascript" src="js/jquery.color.js"></script>
 	
 	<style type="text/css">
 			body{
@@ -300,26 +300,28 @@
 								//player.loadFile('001.mid',player.start);
 								var keyborads=$('.container>div');
 								player.addListener(function(data){
-									//console.log(data);
+									console.log(data.note);
 									var pianoKey=data.note-21;
 									pianokey=$(keyborads[pianoKey]);
 									//channels[event.channel].noteOn(event.noteNumber, event.velocity);
 									if(data.message===144){
 										if(pianokey.hasClass('key-black')){
-											pianokey.css('backgroundColor','#f0f');
+											pianokey.css({backgroundColor:'#f0f'},0);
+											pianokey.css({backgroundColor:'a0a'},200);
 											//pianokey.css('transform','rotateY(20deg)');
 										}else{
-											pianokey.css('backgroundColor','#ff0');
+											pianokey.animate({backgroundColor:'#f00'},0);
+											pianokey.animate({backgroundColor:'#faa'},200);
 											pianokey.find('span').css('fontSize',pianokey.width()/2+1);
 											pianokey.css('transform','rotateY(15deg)');
 										}
 									}
 									else{
 										if(pianokey.hasClass('key-black')){
-											pianokey.css('backgroundColor','#000');
+											pianokey.animate({backgroundColor:'#000'},0);
 											//pianokey.css('transform','rotateY(20deg)');
 										}else{
-											pianokey.css('backgroundColor','#fff');
+											pianokey.animate({backgroundColor:'#fff'},0);
 											pianokey.find('span').css('fontSize',pianokey.width()/2);
 											pianokey.css('transform','rotateY(0deg)');
 										}
