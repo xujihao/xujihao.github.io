@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vex Flow</title>
+	<script type="text/javascript" src="node_modules/vexflow/releases/vexflow-min.js"></script>
+	<script src="dist/jquery.js"></script>
+</head>
+<body>
+	<canvas width="700" height="100"></canvas>
+	<script type="text/javascript">
+	var canvas=$('canvas')[0];
+	var renderer=new Vex.Flow.Renderer(canvas,Vex.Flow.Renderer.Backends.CANVAS);
+	var ctx=renderer.getContext();
+	var stave=new Vex.Flow.Stave(10,0,500);
+	stave.addClef('treble').setContext(ctx).draw();
+	var notes=[
+		new Vex.Flow.StaveNote({keys:['e##/5'],duration:'8d'}).addAccidental(0,new Vex.Flow.Accidental('##')).addDotToAll(),
+		new Vex.Flow.StaveNote({keys:['b/4'],duration:'16'}).addAccidental(0,new Vex.Flow.Accidental('b'))
+	];
+
+	var notes2=[
+		new Vex.Flow.StaveNote({keys:['c/4'],duration:'8'}),
+		new Vex.Flow.StaveNote({keys:['d/4'],duration:'16'}),
+		new Vex.Flow.StaveNote({keys:['e/4'],duration:'16'}).addAccidental(0,new Vex.Flow.Accidental('b'))
+	];
+
+	var notes3=[
+		new Vex.Flow.StaveNote({keys:['d/4'],duration:'16'}),
+		new Vex.Flow.StaveNote({keys:['e/4'],duration:'16'}).addAccidental(0,new Vex.Flow.Accidental('#')),
+		new Vex.Flow.StaveNote({keys:['g/4'],duration:'32'}),
+		new Vex.Flow.StaveNote({keys:['a/4'],duration:'32'}),
+		new Vex.Flow.StaveNote({keys:['g/4'],duration:'16'})
+	];
+	var notes4=[new Vex.Flow.StaveNote({keys:['d/4'],duration:'q'})];
+	var beam=new Vex.Flow.Beam(notes);
+	var beam2=new Vex.Flow.Beam(notes2);
+	var beam3=new Vex.Flow.Beam(notes3);
+
+	var all_notes=notes.concat(notes2).concat(notes3).concat(notes4);
+	Vex.Flow.Formatter.FormatAndDraw(ctx,stave,all_notes);
+
+	beam.setContext(ctx).draw();
+	beam2.setContext(ctx).draw();
+	beam3.setContext(ctx).draw();
+	</script>
+</body>
+</html>
