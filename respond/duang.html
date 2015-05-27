@@ -90,11 +90,14 @@
 	c4.53,6.623,11.181,11.904,19.403,12.529c10.122,0.77,13.466-10.001,14.126-17.979c0.232-2.803,0.082-5.521-0.386-8.136
 	c11.383,9.064,24.143,16.925,37.779,20.23C494.545,192.361,497.203,182.719,490.938,181.2z"/>
 </svg>
-
+<div>
+	<button>再来一次</button>
+</div>
 
 
 	<script type="text/javascript">
 		$(function(){
+		function redraw(){
 			var paths=$('path'),
 				delay=0,length=0,speed=0,
 				previousStrokeLength=0,
@@ -116,6 +119,11 @@
 					$(item).css('transition','stroke-dashoffset '+speed+'ms '+delay+'ms linear').attr('stroke-dashoffset','0');
 				});
 			},1000);
+		}
+		redraw();
+		$('button').bind("click",function(){
+			redraw();
+		});
 		});
 	</script>
 </body>
