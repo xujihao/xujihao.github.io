@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>五线谱</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<script type="text/javascript" src="node_modules/vexflow/releases/vexflow-min.js"></script>
+	<script src="dist/jquery.js"></script>
+	<style type="text/css">
+		p{
+			text-indent: 2em;
+			width:100%;
+			text-align:justify;
+		}
+		body,canvas{
+			width:100%;
+			margin:0;
+			max-width: 600px;
+			margin: 0 auto;
+			font-family:'微软雅黑'
+		}
+		body{
+			padding-bottom: 100px;
+		}
+		.ctncanvas>canvas{
+			width:100px;
+			height:100px;
+			display:inline-block;
+		}
+		#pathG{
+			stroke:blue;
+			stroke-dasharray:300,300;
+			stroke-dashoffset:300;
+			-webkit-animation:pathG 5s infinite;
+			animation pathG 10s infinite;
+		}
+		#pathF{
+			stroke:blue;
+			stroke-dasharray:200,200;
+			stroke-dashoffset:200;
+			-webkit-animation:pathF 4s infinite;
+			animation:pathF 4s infinite;
+		}
+		.pathC{
+			stroke:blue;
+			stroke-dasharray:200,200;
+			stroke-dashoffset:200;
+			-webkit-animation:pathC 4.5s infinite;
+			animation:pathC 4.5s infinite;
+		}
+		#fup{
+			-webkit-animation:fup 4s infinite;
+			animation:fup 4s infinite;
+		}
+		#fdown{
+			-webkit-animation:fdown 4s infinite;
+			animation:fdown 4s infinite;
+		}
+		@-webkit-keyframes pathG{
+			100%{
+				stroke-dashoffset:0;
+			}
+		}
+		@keyframes pathG{
+			100%{
+				stroke-dashoffset:0;
+			}
+		}
+		@-webkit-keyframes pathF{
+			50%,100%{
+				stroke-dashoffset:0;
+			}
+		}
+		@keyframes pathF{
+			50%,100%{
+				stroke-dashoffset:0;
+			}
+		}
+		@-webkit-keyframes pathC{
+			100%{
+				stroke-dashoffset:0;
+			}
+		}
+		@keyframes pathC{
+			100%{
+				stroke-dashoffset:0;
+			}
+		}
+		@-webkit-keyframes fup{
+			0%,59%{
+				opacity: 0;
+			}
+			60%{
+				opacity: 1;
+			}
+		}
+		@keyframes fup{
+			0%,59%{
+				opacity: 0;
+			}
+			60%{
+				opacity: 1;
+			}
+		}
+		@-webkit-keyframes fdown{
+			0%,79%{
+				opacity: 0;
+			}
+			80%{
+				opacity: 1;
+			}
+		}
+		@keyframes fdown{
+			0%,79%{
+				opacity: 0;
+			}
+			80%{
+				opacity: 1;
+			}
+		}
+	</style>
+</head>
+<body>
+	<h3>一切从最简单的开始（我也是刚学的，如有错误，欢迎指正）</h3>
+	<canvas id="canvas1" height="100"></canvas>
+	<p>五线谱顾名思义是由五条线组成，最下面第一条线叫做“第一线”，往上数第二条线叫“第二线”，再往上数是“第三线”、“第四线”，最上面一条线是“第五线”。</p>
+	<p>中间四个空白就是四个间，也是从下往上数的，依次是第一间，第二间，第三间，第四间。</p>
+	<div class="ctncanvas">
+		<canvas></canvas>
+		<canvas></canvas>
+		<canvas></canvas>
+		<canvas></canvas>
+	</div>
+	<p>从左到右为高音谱号（G谱号）、低音谱号（F谱号）、中音谱号、次中音谱号</p>
+	<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="400px" height="200px" viewBox="0 0 200 100" enable-background="new 0 0 200 100" xml:space="preserve">
+		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="38.348" y1="45.043" x2="214.978" y2="44.5"/>
+		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="38.348" y1="53.043" x2="214.979" y2="52.5"/>
+		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="38.348" y1="63.043" x2="214.979" y2="62.5"/>
+		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="38.348" y1="72.043" x2="214.979" y2="71.5"/>
+		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="38.348" y1="82.043" x2="214.979" y2="81.5"/>
+		<path id="pathG" fill="none" stroke="#000000" stroke-miterlimit="10" d="M103.196,70.804c-0.954-5.917,3.146-5.322,7.065-5.978
+			c3.865-0.647,7.904-2.143,11.902-1.548c0.312,10.108-2.673,11.803-11.331,15c-7.848,2.898-14.58,5.302-22.213,0.584
+			c-0.859-14.008,8.299-16.899,16.342-26.373c3.408-4.013,6.957-9.899,8.167-14.688c2.231-8.833-1.954-9.243-10.38-8.75
+			c-9.146,14.98,5.528,28.744,7.516,43.381c1.222,9.002,4.25,17.309-3.629,23.508c-7.119,5.602-16.911,8.711-15.856-3.858
+			c0.555,0.089,1.396-0.045,1.997,0.013c0.174,0.675,0.388,1.443,0.57,1.982c-1.764,0.678-0.954-0.603-1.562-0.99"/>
+	</svg>
+	<img src="images/pathG.png" width="180px" />
+	<p>这就是高音谱号（G谱号）的画法（画的比较丑，见谅）！</p>
+	<img src="images/pathF.png" width="180px" />
+	<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="400px" height="200px" viewBox="0 0 200 100" enable-background="new 0 0 200 100" xml:space="preserve">
+		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="49.826" y1="45" x2="269.826" y2="44.13"/>
+		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="49.826" y1="58" x2="269.826" y2="57.13"/>
+		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="49.826" y1="85" x2="269.826" y2="84.13"/>
+		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="49.826" y1="71" x2="269.826" y2="70.13"/>
+		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="49.826" y1="99" x2="269.826" y2="98.13"/>
+		<path id="pathF" fill="none" stroke="#000000" stroke-miterlimit="10" d="M98.522,56.304c-0.644-12.188,17.922-14.295,18.261-0.87
+			c0.307,12.155-11.39,21.183-19.13,28.696"/>
+		<g>
+			<g>
+				<path id="fup" d="M124,54.326c0,0,2-3,0-3S122,54.326,124,54.326C124,54.326,122,54.326,124,54.326z"/>
+			</g>
+		</g>
+		<g>
+			<g>
+				<path id="fdown" d="M123.739,67.37c1.935,0,1.935-3,0-3S121.805,67.37,123.739,67.37L123.739,67.37z"/>
+			</g>
+		</g>
+	</svg>
+	<p>这个是低音谱号（F谱号）的画法（这个自我感觉画的还不错！）</p>
+	<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="400px" height="200px" viewBox="0 0 200 100" enable-background="new 0 0 200 100" xml:space="preserve">
+		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="31.931" y1="28.729" x2="155.052" y2="29.306"/>
+		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="31.931" y1="37.729" x2="155.053" y2="38.306"/>
+		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="31.931" y1="69.729" x2="155.053" y2="70.306"/>
+		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="31.931" y1="58.729" x2="155.053" y2="59.306"/>
+		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="31.931" y1="48.729" x2="155.053" y2="49.306"/>
+		<path class="pathC" fill="none" stroke="#000000" stroke-miterlimit="10" d="M43.491,34.867c0.181,0.631,0.003,1.049-0.533,1.253
+			c-5.671-2.001,4.562-11.27,7.932-1.267c1.912,5.674-3.18,13.8-9.635,12.064c-0.025-0.688-0.184-1.475-0.177-2.148
+			c-1.225,0.979-3.648,2.607-5.622,2.961c0.855,2.853,3.531,6.297,6.2,6.687c0.728-3.47,3.847-3.957,6.937-3.265
+			c2.018,3.835,4.565,9.433,2.268,13.627c-2.046,3.734-12.257,6.242-9.104,0.723"/>
+		<path class="pathC" fill="none" stroke="#000000" stroke-miterlimit="10" d="M127.491,23.867c0.181,0.631,0.003,1.049-0.533,1.253
+			c-5.671-2.001,4.561-11.27,7.932-1.267c1.912,5.674-3.18,13.8-9.635,12.064c-0.025-0.688-0.184-1.475-0.177-2.148
+			c-1.225,0.979-3.648,2.607-5.622,2.961c0.855,2.853,3.531,6.296,6.2,6.687c0.728-3.471,3.847-3.957,6.937-3.266
+			c2.018,3.836,4.564,9.434,2.268,13.627c-2.047,3.734-12.257,6.242-9.104,0.724"/>
+	</svg>
+	<img src="images/pathC.png" width="180px" style="vertical-align:80px" />
+	<p>这个谱号的特点是：两个反过来的字母“C”（被我画的不太像，见谅见谅），最中间对准那条线，那条线就是“C”音（DO）。也叫做那条线的谱号，比如对四线，就叫“第四线C谱号”（也有人叫它“次中音谱号”），对准第三线就叫“第三线C谱号”（也有人叫它“中音谱号”）。</p>
+	<h3>今天的课就是这么多了，未完待续！敬请期待。。。</h3>
+	<script type="text/javascript">
+		var canvas=$('#canvas1')[0];
+		var renderer=new Vex.Flow.Renderer(canvas,Vex.Flow.Renderer.Backends.CANVAS);
+		var ctx=renderer.getContext();
+		var width=document.documentElement.scrollWidth;
+		width=width>500?500:width;
+		console.log(width);
+		var stave=new Vex.Flow.Stave(0,0,width);
+		stave.addClef('treble').setContext(ctx).draw();
+
+		var ctncanvas=$('.ctncanvas canvas');
+		var clefs=['treble','bass','alto','tenor']
+		ctncanvas.each(function(index,item){
+			var renderer=new Vex.Flow.Renderer(item,Vex.Flow.Renderer.Backends.CANVAS);
+			var ctx=renderer.getContext();
+			var stave=new Vex.Flow.Stave(0,0,120);
+			stave.addClef(clefs[index]).setContext(ctx).draw();
+		});
+	</script>
+</body>
+</html>
