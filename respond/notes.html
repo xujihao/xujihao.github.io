@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>音符</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<script type="text/javascript" src="node_modules/vexflow/releases/vexflow-min.js"></script>
+	<script src="dist/jquery.js"></script>
+	<style>
+		html,body{
+			margin:0;
+			padding: 0;
+		}
+		#titlepath{
+			fill:none;
+		}
+		text{
+			font-size: 42px;
+			letter-spacing: 20px;
+			fill:#fff;
+		}
+		.title{
+			display: block;
+			width:300px;
+			margin:0px auto 10px;
+		}
+		#title{
+			background: #222;
+			width:100%;
+		}
+		ul{
+			list-style-type:none;
+		}
+		ul>li{
+			height:30px;
+		}
+		ul>li>span{
+			display:inline-block;
+			width:40px;
+			text-align:center;
+		}
+		ul>li>span:first-child{
+			width:80px;
+		}
+		#yinmin{
+			background: #ccc;
+			top:-10px;
+			position: relative;
+		}
+		#notes>canvas{
+			width:150px;
+			height: :100px;
+		}
+	</style>
+</head>
+<body>
+	<div id="title">
+	<svg version="1.1" height="100px" class="title">
+		<path id="titlepath" d="M30,80 C 100,20  200,20 220 90" />
+		<text>
+			<textPath xlink:href="#titlepath">认识音符</textPath>
+		</text>
+	</svg>
+	</div>
+	<div id="yinmin">
+		<canvas id="canvas1" width="700px" height="100px"></canvas>
+		<ul>
+			<li>
+				<span>（音名）</span>
+				<span>C</span>
+				<span>D</span>
+				<span>E</span>
+				<span>F</span>
+				<span>G</span>
+				<span>A</span>
+				<span>B</span>
+			</li>
+			<li>
+				<span>（唱名）</span>
+				<span>Do</span>
+				<span>Ruai</span>
+				<span>Mi</span>
+				<span>Fa</span>
+				<span>Sou</span>
+				<span>La</span>
+				<span>Xi</span>
+			</li>
+			<li>
+				<span>（译音）</span>
+				<span>斗</span>
+				<span>瑞</span>
+				<span>咪</span>
+				<span>发</span>
+				<span>搜</span>
+				<span>拉</span>
+				<span>西</span>
+			</li>
+			<li>
+				<span>（简谱）</span>
+				<span>1</span>
+				<span>2</span>
+				<span>3</span>
+				<span>4</span>
+				<span>5</span>
+				<span>6</span>
+				<span>7</span>
+			</li>
+		</ul>
+	</div>
+	<div id="notes">
+		<canvas></canvas>
+		<canvas></canvas>
+		<canvas></canvas>
+		<canvas></canvas>
+		<canvas></canvas>
+		<canvas></canvas>
+		<canvas></canvas>
+	</div>
+	<script type="text/javascript">
+		$(function(){
+			var canvas=$('#canvas1')[0];
+			var renderer=new Vex.Flow.Renderer(canvas,Vex.Flow.Renderer.Backends.CANVAS);
+			var ctx=renderer.getContext();
+			var stave=new Vex.Flow.Stave(100,0,500);
+			stave.addClef('treble').setContext(ctx).draw();
+			var notes=[
+				new Vex.Flow.StaveNote({keys:['c/4'],duration:'w'}),
+				new Vex.Flow.StaveNote({keys:['d/4'],duration:'w'}),
+				new Vex.Flow.StaveNote({keys:['e/4'],duration:'w'}),
+				new Vex.Flow.StaveNote({keys:['f/4'],duration:'w'}),
+				new Vex.Flow.StaveNote({keys:['g/4'],duration:'w'}),
+ 				new Vex.Flow.StaveNote({keys:['a/4'],duration:'w'}),
+				new Vex.Flow.StaveNote({keys:['b/4'],duration:'w'})
+			];
+
+			var voice=new Vex.Flow.Voice({num_beats:7,beat_value:1,resolution:Vex.Flow.RESOLUTION});
+			voice.addTickables(notes);
+			var formatter=new Vex.Flow.Formatter().joinVoices([voice]).format([voice],300);
+			voice.draw(ctx,stave);
+			var beat_values=[1,2,4,8,16,32,64,128,256];
+			var durations=['w','h','q','8','16','32','64','128','256'];
+			$('#notes>canvas').each(function(index,item){
+				var renderer=new Vex.Flow.Renderer(item,Vex.Flow.Renderer.Backends.CANVAS);
+				var ctx=renderer.getContext();
+				var stave=new Vex.Flow.Stave(0,0,150);
+				stave.addClef('treble').setContext(ctx).draw();
+				var voice=new Vex.Flow.Voice({
+					num_beats:1,
+					beat_value:beat_values[index],
+					resolution:Vex.Flow.RESOLUTION
+				});
+				var note=[new Vex.Flow.StaveNote({keys:['g/4'],duration:durations[index]})];
+				voice.addTickables(note);
+				var formatter=new Vex.Flow.Formatter().joinVoices([voice]).format([voice],150);
+				voice.draw(ctx,stave);
+			});
+// 				var beat_value=beat_values[index];
+		});
+	</script>
+</body>
+</html>
