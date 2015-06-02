@@ -5,23 +5,27 @@
 	<title>IE VML</title>
 	<style>
 		img{
-			width:800px;
+			transform-origin:top left;
+			transform:scale(0.45,0.45);
 		}
-		img.ph{
-			-ms-interpolation-mode:bicubic;
-		}
-		v\:image{
-			behavior:url(#default#VML);
-			display: block;
-			width:800px;
-			height: 400px;
+		.imgctn{
+			height: 500px;
+			overflow: hidden;
 		}
 	</style>
 </head>
 <body>
-	<img src="1.png" />
-	<img src="2.png"  class="ph" />
-	<img src="3.png" />
-	<img src="4.png" />
+	<div class="imgctn">
+		<img src="0.png" />
+	</div>
+	<div class="imgctn">
+		<img src="1.png" />
+	</div>
+	<div class="imgctn">
+		<img src="2.png" />
+	</div>
+	<div class="imgctn">
+		<img src="3.png" />
+	</div>
 </body>
 </html>
