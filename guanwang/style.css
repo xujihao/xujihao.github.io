@@ -1,4 +1,4 @@
-html,body,div,ul,li,p{
+﻿html,body,div,ul,li,p{
 	margin: 0;
 	padding: 0;
 	list-style: none;
@@ -9,7 +9,7 @@ html,body{
 	height: 100%;
 }
 .container,.header{
-	min-width: 1300px;
+	min-width: 1900px;
 	width:100%;
 	max-width: 2000px;
 }
@@ -19,7 +19,7 @@ html,body{
 }
 .header>.logo{
 	display: inline-block;
-	margin:0 0 0 200px;
+	margin:0 0 0 360px;
 	height: 60px;
 	position: relative;
 	top:-10px;
@@ -45,7 +45,7 @@ html,body{
 }
 .header ul>li>a{
 	display: inline-block;
-	font-size: 14px;
+	font-size: 16px;
 	text-decoration: none;
 	color:#222;
 	height: 40px;
@@ -54,13 +54,11 @@ html,body{
 	color:rgb(156,120,165);
 	cursor: pointer;
 }
- .login,.header .login>a{
- 	font-size: 13px;
- 	vertical-align: sub;
+.login{
+	margin-left:300px;
 }
-.header ul>li:last-child>a{
-	font-size: 13px;
-	line-height: 68px;
+.header>.login li>a{
+	font-size: 14px;
 }
 .shoppingcart:before{
 	content:url(images/shoppingcart.png);
@@ -73,16 +71,18 @@ html,body{
 	position: relative;
 }
 .headerbg{
-	background: rgb(6,7,8);
-	width:100%;
-}
-.headerbg>img{
-	width:1230px;
+	background-color: rgb(6,7,8);
+    background-image: url(images/header.jpg);
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 180px;
+    background-size: 1230px;
+    background-position: center center;
 }
 .nav{
 	position: absolute;
-	left:200px;
-	top:150px;
+	left:500px;
+	top:135px;
 	color: #fff;
 }
 .nav>span{
@@ -103,7 +103,8 @@ html,body{
 	cursor: pointer;
 }
 .content{
-	margin:10px 200px 100px ;
+	margin:10px 360px 100px ;
+	width:1230px;
 }
 .content>h3{
 	font-size: 18px;
