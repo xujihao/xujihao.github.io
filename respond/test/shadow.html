@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Shadow</title>
+	<style>
+		body,div,ul,li{
+			margin:0;
+			padding: 0;
+			list-style-type: none;
+		}
+		.wrap{
+			width:70%;
+			margin:50px auto;
+			background: #fff;
+			height: 200px;
+			position: relative;
+		}
+		.wrap h1{
+			text-align: center;
+			font-size: 32px;
+			line-height: 200px;
+		}
+		.effect{
+			box-shadow: 0 0 10px rgba(0,0,0,0.3) inset;
+			-webkit-box-shadow:0 0 4px rgba(0,0,0,0.3) inset;
+			-moz-box-shadow:0 0 4px rgba(0,0,0,0.3) inset;
+		}
+		.wrap:after,.wrap:before{
+			content:'';
+			position:absolute;
+			top:50%;
+			left:10px;
+			right:10px;
+			bottom: 0px;
+			border-radius: 200px/10px;
+			background: #fff;
+			box-shadow: 0 0 5px rgba(0,0,0,0.8);
+			z-index: -1;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrap effect">
+		<h1>Box Shadow</h1>
+	</div>
+</body>
+</html>
