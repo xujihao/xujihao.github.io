@@ -2,7 +2,7 @@ html,body,div,ul,li,p{
 	margin: 0;
 	padding: 0;
 	list-style: none;
-	font-family: '微软雅黑';
+	font-family: 'ÃƒÆ’Ã‚Â¥Ãƒâ€šÃ‚Â¾Ãƒâ€šÃ‚Â®ÃƒÆ’Ã‚Â¨Ãƒâ€šÃ‚Â½Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã‚Â©ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂºÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã‚Â©Ãƒâ€šÃ‚Â»ÃƒÂ¢Ã¢â€šÂ¬Ã‹Å“';
 }
 html,body{
 	width:100%;
@@ -92,7 +92,6 @@ html,body{
 .nav>ul{
 	display: inline-block;
 	margin-left: 330px;
-	vertical-align: sub;
 }
 .nav>ul>li{
 	float: left;
