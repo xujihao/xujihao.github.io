@@ -9,14 +9,8 @@ body{
 	margin-top:20px;
 }
 .container,.header{
-<<<<<<< HEAD
 	width:1230px;
 	margin:0 auto;
-=======
-	min-width: 1800px;
-	width:100%;
-	max-width: 2000px;
->>>>>>> e55cd785e99e246b91a63b7f0e3d6d5121deef63
 }
 .header{
 	background: rgba(255,255,255);
@@ -60,14 +54,9 @@ body{
 	color:rgb(156,120,165);
 	cursor: pointer;
 }
-<<<<<<< HEAD
 .login{
 	float: right;
 	margin-right: 0;
-=======
-.header .login{
-	margin-left:165px;
->>>>>>> e55cd785e99e246b91a63b7f0e3d6d5121deef63
 }
 .header>.login li>a{
 	font-size: 14px;
@@ -113,11 +102,7 @@ body{
 	cursor: pointer;
 }
 .content{
-<<<<<<< HEAD
 	margin:10px 0px 100px ;
-=======
-	margin:10px 360px 100px;
->>>>>>> e55cd785e99e246b91a63b7f0e3d6d5121deef63
 	width:1230px;
 }
 .content>h3{
