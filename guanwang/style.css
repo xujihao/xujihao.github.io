@@ -1,4 +1,4 @@
-﻿html,body,div,ul,li,p{
+html,body,div,ul,li,p{
 	margin: 0;
 	padding: 0;
 	list-style: none;
@@ -20,8 +20,7 @@ body{
 .header>.logo{
 	display: inline-block;
 	height: 60px;
-	position: relative;
-	top:-10px;
+	vertical-align: 10px;
 }
 .logo>img{
 	height: 24px;
@@ -48,7 +47,7 @@ body{
 	text-decoration: none;
 	color:#222;
 	height: 40px;
-	letter-spacing:2px;
+	letter-spacing: 1px;
 }
 .header ul>li>a:hover{
 	color:rgb(156,120,165);
