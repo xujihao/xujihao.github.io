@@ -14,18 +14,16 @@ $(function(){
 			index=sliders.index(atvSlider)+1,
 			nxtSlider=$('.slider-ctn>.slider').eq(index);
 		if(index<sliders.length){
-			nxtSlider.css({left:'2000px'});
+			nxtSlider.css('left','2000px');
 			atvSlider.animate({
-				left:'-2000px',
-				opacity:0
-			},500,function(){
+				left:'-2000px'
+			},600,function(){
 				atvSlider.removeClass('active');
+				nxtSlider.addClass('active');
 			});
 			nxtSlider.animate({
-				left:'115px',
-				opacity:1
-			},500,function(){
-				nxtSlider.addClass('active');
+				left:'115px'
+			},1200,function(){
 				if(index==sliders.length-1){
 					self.css('color','rgba(0,0,0,0.5)');
 				}
@@ -41,17 +39,14 @@ $(function(){
 			prevSlider=$('.slider-ctn>.slider').eq(index);
 		if(index>=0){
 			atvSlider.animate({
-				left:'2000px',
-				opacity:0
+				left:'2000px'
 			},500,function(){
 				atvSlider.removeClass('active');
+				prevSlider.addClass('active');
 			});
 			prevSlider.animate({
-				left:'115px',
-				opacity:1
-			},500,function(){
-				prevSlider.addClass('active');
-				console.log(index);
+				left:'115px'
+			},1000,function(){
 				if(index===0){
 					self.css('color','rgba(0,0,0,0.5)');
 				}
