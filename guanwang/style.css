@@ -14,17 +14,9 @@ body{
 	padding: 0 10px;
 	position: relative;
 }
-.container{
-	margin-top: 480px;
-}
-.h-nav{
+.header .h-nav{
 	background: #fff;
 	height: 100px;
-	position: fixed;
-	top:0;
-	left:0;
-	right: 0;
-	z-index: 10;
 }
 .h-nav .logo{
 	display: inline-block;
@@ -68,7 +60,7 @@ body{
 	float: right;
 	margin: 0 -15px;
 }
-.h-nav ul.login lia{
+.h-nav ul.login li a{
 	font-size: 14px;
 }
 .h-nav .shoppingcart:before{
@@ -77,17 +69,19 @@ body{
 	display: inline-block;
 	vertical-align: middle;
 }
-.h-section{
+.header .h-section{
     background-image: url(images/header.jpg);
     background-repeat: no-repeat;
     height: 285px;
     background-size:1920px 285px;
     background-position: center;
-    position: fixed;
-    z-index: 10;
-    top: 100px;
-    left: 0;
-    right: 0;
+}
+.header.fixed{
+	position: fixed;
+	top:-110px;
+	left: 0;
+	right: 0;
+	z-index: 10;
 }
 .h-section.aboutus{
 	background-image: url(images/intro.jpg);
