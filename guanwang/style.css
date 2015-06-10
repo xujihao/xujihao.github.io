@@ -2,7 +2,7 @@ html,body,div,ul,li,p{
 	margin: 0;
 	padding: 0;
 	list-style: none;
-	font-family: '微软雅黑'
+	font-family: 'å¾®è½¯é›…é»‘'
 }
 body{
 	min-width: 1300px;
@@ -11,11 +11,20 @@ body{
 .container,.h-nav{
 	width:1230px;
 	margin: 0px auto;
+	padding: 0 10px;
 	position: relative;
 }
+.container{
+	margin-top: 480px;
+}
 .h-nav{
-	background: rgba(255,255,255);
+	background: #fff;
 	height: 100px;
+	position: fixed;
+	top:0;
+	left:0;
+	right: 0;
+	z-index: 10;
 }
 .h-nav .logo{
 	display: inline-block;
@@ -74,6 +83,11 @@ body{
     height: 285px;
     background-size:1920px 285px;
     background-position: center;
+    position: fixed;
+    z-index: 10;
+    top: 100px;
+    left: 0;
+    right: 0;
 }
 .h-section.aboutus{
 	background-image: url(images/intro.jpg);
@@ -112,10 +126,6 @@ body{
 .content{
 	margin: 72px 0px 100px 8px;
 	width:1230px;
-	display: none;
-}
-.container .content.active{
-	display: block;
 }
 .content h3{
 	font-size: 18px;

@@ -1,18 +1,23 @@
 $(function(){
 	$('.h-section .subnav>ul>li').bind('click',function(){
-		var index=$('.h-section .subnav>ul>li').index($(this));
-		var contents=$('.container>.content');
-		contents.removeClass('active');
-		contents.eq(index).addClass('active');
+		var index=$('.h-section ul li').index($(this)),
+			contents=$('.container .content'),
+			height=0;
+		for(var i=0;i<index;i++){
+			height+=contents.eq(i).height()+97;
+		}
 
+		console.log(height);
+		// $(window).scrollTop(height);
+		$('html,body').animate({scrollTop:height},500,'linear');
 	});
 
 	$('.arrow.left').bind('click',function(){
 		var self=$(this);
-		var sliders=$('.slider-ctn>.slider'),
-			atvSlider=$('.slider-ctn>.slider.active'),
+		var sliders=$('.slider-ctn .slider'),
+			atvSlider=$('.slider-ctn .slider.active'),
 			index=sliders.index(atvSlider)+1,
-			nxtSlider=$('.slider-ctn>.slider').eq(index);
+			nxtSlider=$('.slider-ctn .slider').eq(index);
 		if(index<sliders.length){
 			nxtSlider.css('left','2000px');
 			atvSlider.animate({
