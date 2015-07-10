@@ -10,6 +10,9 @@
 			padding: 0;
 			box-sizing:border-box;
 		}
+		article{
+			padding: 0 19px;
+		}
 		header{
 			background-color: rgb(104,176,32);
 			color: #fff;
@@ -57,21 +60,21 @@
 		}
 		.basic-info .user{
 			width:30%;
-			padding:20px 20px 0;
+			padding:20px 0px 0;
 			font-size: 18px;
 		}
 		.basic-info .username{
-			margin-left: 40px;
+			margin-left: 10px;
 			font-size: 18px;
 		}
 		.basic-info .user img{
-			width:100px;
+			width:80px;
 			border-radius: 5px;
 			margin-bottom: 5px;
 		}
 		.basic-info .progress{
 			width:70%;
-			padding-left: 35px;
+			padding-left: 12px;
 			font-size: 18px;
 			line-height: 30px;
 		}
@@ -81,11 +84,18 @@
 			margin-top: 10px;
 			display: inline-block;
 		}
+
 		.knowledge-point,.score-detail{
 			background-color: rgb(248,248,248);
-			margin:40px 20px;
+			margin:40px 0px;
 			position: relative;
-			padding: 40px 0 20px;
+			padding: 40px 0 18px;
+			border:1px solid #ccc;
+			margin-left:auto;
+			margin-right: auto;
+		}
+		.knowledge-point{
+			padding-bottom: 20px;	
 		}
 		.section-title{
 			position: absolute;
@@ -116,7 +126,7 @@
 			margin: 0px auto;
 			font-size: 32px;
   			color: #fff;
-  			line-height: 100px;
+  			line-height: 120px;
   			text-align: center;
   			border:5px solid rgb(160,215,91);
 		}
@@ -141,17 +151,54 @@
 		}
 		.score-detail table{
 			width:100%;
+			color: #5b5b5b;
 		}
 		.score-detail td{
 			width:50%;
 			font-size: 18px;
 			height: 30px;
+			text-align: left;
 		}
 		.score-detail td:first-child{
 			padding-left: 20px;
 		}
 		.score-detail td:last-child{
 			padding-left: 70px;
+		}
+		footer{
+			margin:0 20px 40px;
+			text-align: center;
+			color: #5b5b5b;
+		}
+		footer span{
+			display: inline-block;
+			vertical-align: middle;
+		}
+		footer .left-line,footer .right-line{
+			border-top:1px solid #ccc;
+			height: 0;
+			width:50px;
+			margin-top:10px;
+			position: relative;
+		}
+		footer .left-line{
+			float: left;
+			
+		}
+		footer .left-line:after,footer .right-line:after{
+			position: absolute;
+			content: '.';
+			font-size:24px;
+			color: #ccc;
+			left:49px;
+			top:-19px;
+		}
+		footer .right-line{
+			float: right;
+		}
+		footer .right-line:after{
+			left:0px;
+			top:-19px;
 		}
 	</style>
 </head>
@@ -220,7 +267,9 @@
 		</section>
 	</article>
 	<footer>
-		
+		<span class="left-line"></span>
+		<span class="text">The ONE智能音乐教室</span>
+		<span class="right-line"></span>
 	</footer>
 </body>
 </html>
