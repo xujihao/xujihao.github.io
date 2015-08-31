@@ -1,0 +1,269 @@
+.loader{
+	background-color: #fff;
+	position: absolute;
+	transition:all 1.5s ease-in;
+}
+body,html,ul,div,li,h1{
+	margin:0;
+	padding: 0;
+}
+html,body{
+	height: 100%;
+	min-height: 900px;
+	min-width: 1230px;
+	font-family: '微软雅黑';
+}
+.g-ctn{
+	width:100%;
+	height: 100%;
+	overflow: hidden;
+	background-color: rgb(135,124,177);
+}
+.m-title{
+	position: absolute;
+	color: #fff;
+	font-size: 16px;
+	top:40px;
+	left: 50px;
+	opacity: 0;
+	transition:opacity 1s;
+}
+.m-descs{
+	position: absolute;
+	opacity: 0;
+	top:300px;
+	left:20%;
+	width:20%;
+	min-width: 260px;
+	color: #fff;
+	transition:opacity 1s;
+	.desc{
+		position: absolute;
+		.icon{
+			margin:0 12% 40px;
+		}
+		.title{
+			font-size: 32px;
+			line-height: 1.2;
+		}
+		.text{
+			font-size: 14px;
+			line-height: 1.6;
+			opacity: 0.8;
+		}
+	}
+}
+.m-arrow{
+	position: absolute;
+	top:480px;
+	left: 0px;
+	width:120px;
+	height: 64px;
+	display: none;
+	svg{
+		transition:all 0.7s;
+	}
+	&:hover{
+		svg{
+			transform:matrix(1,0,0,1,-10,0);
+		}
+	};
+}
+.m-header{
+	color: #fff;
+	text-align: center;
+	width:915px;
+	margin:100px auto 0;
+
+	.icon{
+		width:200px;
+	}
+	.title{
+		margin-top: 40px;
+		font-size: 20px;
+		line-height: 1.2;
+		font-weight:900;
+		h1{
+			letter-spacing: -2px;
+		}
+	}
+	.text{
+		font-size: 14px;
+		line-height: 1.6;
+		letter-spacing: 1px;
+		margin:40px 0 70px;
+		opacity: 0.8;
+	}
+}
+.show-navigations{
+	opacity: 1 !important;
+	right:30px !important;
+}
+.m-navigations{
+	position: absolute;
+	right: 0px;
+	height: 104px;
+	width:26px;
+	opacity: 0;
+	top:420px;
+	transition:all 1s;
+	.navBtn{
+		position: relative;
+		width:26px;
+		height: 26px;
+		circle{
+			transition:all 1s;
+		}
+		.dot{
+			position: absolute;
+			top:8px;
+			left: 8px;
+			width:4px;
+			height: 4px;
+			border-radius: 50%;
+			border: 1px solid #fff;
+			background-color: #fff;
+		}
+	}
+}
+.wrapper{
+	position: relative;
+	/*overflow: hidden;*/
+	width:1230px;
+	margin:0 auto;
+	font-size: 0;
+	height: 100%;
+
+	.imgs-wrapper{
+		display: inline-block;
+		left: 0;
+		width:400px;
+		height: 260px;
+		overflow: hidden;
+		position: absolute;
+		cursor: pointer;
+		/*transition:all 1s;*/
+		
+		.hidden-photos{
+			display: none;
+			
+		}
+		.m-photos{
+			position: absolute;
+			width:100%;
+			height: 100%;
+			transition:all 1s;
+		}
+		.photos{
+			position: absolute;
+			height: 120%;
+			width:120%;
+			.photo{
+				width:100%;
+				height: 100%;
+				transform:matrix(1,0,0,1,-40,-24);
+				transition:all 1s;
+			}
+			.bigphoto{
+				transform:matrix(1,0,0,1,0,0);
+			}
+			.mask{
+				position: absolute;
+				width:100%;
+				height: 100%;
+				top:0;
+				left: 0;
+				background-color: #818181;
+				opacity: 0.65;
+				transition:all 1s;
+			}
+			.textmask{
+				position: absolute;
+				top:110px;
+				left:140px;
+				border:1px solid #fff;
+				color:#fff;
+				font-size:24px;
+				width:120px;
+				line-height: 40px;
+				text-align: center;
+				transition:all 1s;
+			}
+		}
+
+		.loaders{
+			position: absolute;
+			width: 100%;
+			height:100%;
+			.loaderRun{
+				.loaderTop,.loaderBottom{
+					transform:scale(1,1);
+				}
+				.loaderLeft,.loaderRight{
+					transform:scale(1,1);
+				}
+			}
+			.loaderTop{
+				top:-1px;
+				width:100%;
+				height: 5px;
+				left:0;
+				.loader;
+				transform:scale(0,1);
+				transform-origin:0% 0% 0px;
+			}
+			.loaderLeft{
+				top:0;
+				left:-1px;
+				height:100%;
+				width:5px;
+				.loader;
+				transform:scale(1,0);
+				transform-origin:0% 100% 0px;
+			}
+			.loaderRight{
+				top:0;
+				right:-1px;
+				height:100%;
+				width:5px;
+				.loader;
+				transform:scale(1,0);
+				transform-origin:100% 0% 0px;
+			}
+			.loaderBottom{
+				bottom: -1px;
+				left:0;
+				height: 5px;
+				width:100%;
+				.loader;
+				transform:scale(0,1);
+				transform-origin:100% 100% 0px;
+			}
+		}
+		
+		&.wrapper-sm:hover{
+			.photos{
+				.photo{
+					width:400px;
+					height: 258px;
+					transform:matrix(1,0,0,1,0,0);
+				}
+				.mask{
+					opacity: 0;
+				}
+				.textmask{
+					transform:scale(0.3);
+					opacity: 0;
+				}
+			}
+		}
+
+	}
+
+	#imgs-wrapper1{
+		left:410px;
+	}
+	#imgs-wrapper2{
+		left: 820px;
+	}
+}

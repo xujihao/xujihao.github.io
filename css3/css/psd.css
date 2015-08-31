@@ -1,0 +1,132 @@
+html,
+body,
+div,
+h3,
+input,
+label {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background: #f4f4f4;
+}
+.m-wrap {
+  padding: 15% 2%;
+}
+.m-wrap input {
+  display: block;
+  height: 44px;
+  padding: 6px;
+  width: 100%;
+}
+.m-wrap button {
+  display: block;
+  width: 100%;
+  height: 42px;
+  background: #0af;
+  color: #fff;
+  text-align: center;
+  border: none;
+  border-radius: 3px;
+  margin-top: 20px;
+  font-size: 1.1em;
+}
+.m-wrap .feedback {
+  margin-top: 30px;
+  color: #666;
+  visibility: hidden;
+}
+.m-wrap .feedback .icon {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  display: inline-block;
+  background-image: url(../imgs/right.png);
+  background-repeat: no-repeat;
+}
+.disabled {
+  color: #ccc;
+}
+.m-header {
+  height: 72px;
+  background: #fff;
+  font-size: 1.4em;
+}
+.m-header .wrap {
+  width: 60%;
+  margin: 0 auto;
+}
+.m-header .wrap .logo {
+  background-image: url(../imgs/logo.png);
+  width: 260px;
+  height: 72px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  background-position: 0px 18px;
+}
+.m-header .wrap .logo.en {
+  background-image: url(../imgs/logo.en.png);
+  width: 270px;
+}
+.m-header .wrap .title {
+  padding-left: 5px;
+  border-left: 1px solid #ccc;
+  margin-left: 10px;
+  display: inline-block;
+  vertical-align: 23px;
+}
+.m-body {
+  width: 60%;
+  margin: 25px auto;
+  background: #fff;
+  padding: 5%;
+  color: rgba(0, 0, 0, 0.8);
+}
+.m-body .warning {
+  display: block;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #ccc;
+  font-size: 1.4em;
+  margin-bottom: 40px;
+}
+.m-body .form-group {
+  text-align: center;
+  margin-top: 15px;
+}
+.m-body .form-group label {
+  font-size: 1.2em;
+  width: 20%;
+  text-align: right;
+  display: inline-block;
+  margin-right: 2%;
+  vertical-align: -5px;
+}
+.m-body .form-group label.en {
+  width: 30%;
+}
+.m-body .form-group input {
+  display: inline-block;
+  width: 60%;
+  height: 44px;
+  padding: 6px;
+}
+.m-body .form-group button {
+  width: 40%;
+  height: 42px;
+  border: none;
+  background: #0af;
+  color: #fff;
+  margin-top: 10px;
+  font-size: 1.2em;
+  margin-left: 2%;
+}
+@media screen and (max-width: 800px) {
+  .m-body {
+    width: 90%;
+    font-size: 12px;
+  }
+  .m-header {
+    visibility: hidden;
+  }
+}

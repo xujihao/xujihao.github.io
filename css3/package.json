@@ -1,0 +1,25 @@
+{
+  "name": "xiaohuangren",
+  "version": "1.0.0",
+  "description": "do anything you like",
+  "main": "xiaohuangren.html",
+  "scripts": {
+    "test": "''"
+  },
+  "dependencies":{
+    "gulp-less":"^3.0.3"
+  },
+  "devDependencies":{
+    "gulp":"^3.8.5",
+    "gulp-less":"3.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "''"
+  },
+  "keywords": [
+    "xiaohuangren"
+  ],
+  "author": "xujihao",
+  "license": "ISC"
+}
