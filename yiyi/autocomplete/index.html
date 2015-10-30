@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>AutoComplete</title>
+	<link rel="stylesheet" type="text/css" href="../static/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/autocomplete.css">
+	<script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="../static/js/autocomplete.js"></script>
+</head>
+<body>
+	<div class="auto-complete">
+		<input type="text" class="form-control">
+		<ul class="data-lists">
+		</ul>
+	</div>
+	<script type="text/javascript">
+		$('.auto-complete').autoComplete({
+			datas:[{id:1,value:'Hello'},{id:2,value:'Hello2'},{id:3,value:'Hello3'},{id:4,value:'Hello4'},{id:5,value:'Hello5'}],
+			valueField:'value',
+			titleField:'value'
+		});
+	</script>
+</body>
+</html>

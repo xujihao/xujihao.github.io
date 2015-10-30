@@ -1,0 +1,26 @@
+body {
+  padding: 100px;
+}
+.auto-complete {
+  position: relative;
+  width: 200px;
+}
+.auto-complete .form-control {
+  padding: 6px;
+  width: 100%;
+  height: 32px;
+}
+.auto-complete .form-control:focus {
+  border: 1px solid #042166;
+}
+.auto-complete .data-lists {
+  padding: 0 12px;
+  position: absolute;
+  top: 32px;
+  left: 0;
+  right: 0;
+  line-height: 20px;
+  border: 1px solid #eee;
+  border-top: none;
+  cursor: pointer;
+}
