@@ -1,0 +1,19 @@
+body {
+  background: #666;
+}
+.border {
+  margin: 100px auto 0;
+  width: 600px;
+  height: 300px;
+  background: #fff;
+  background-clip: padding-box;
+  border: 10px solid rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  box-shadow: 0 0 0 10px yellowgreen,
+                0 0 0 15px yellow;
+  cursor: pointer;
+  background: -webkit-linear-gradient(transparent 98%, #58a 2%);
+  background: linear-gradient(transparent 98%, #58a 2%);
+  background-size: 100% 50px;
+  background-origin: padding-box;
+}
