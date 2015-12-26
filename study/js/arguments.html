@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Arguments</title>
+    <link rel="stylesheet" href="/study/static/css/reset.css">
+    <style type="text/css">
+        .g-hd,.g-ft{
+            background: #333;
+            color: #FFF;
+        }
+        .g-bd{
+            background: #F4EDE3;
+            color:#333;
+        }
+        .g-inner{
+            width:920px;
+            margin: 0 auto;
+        }
+        pre{
+            margin-left: -80px;
+        }
+        pre .result{
+            color:#f93;
+        }
+        .text{
+            text-indent: 2em;
+        }
+        table{
+            margin:20px;
+        }
+        table td,th{
+            border:1px solid #ccc; 
+            width:200px;  
+            text-align: center;
+            line-height: 32px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="g-hd">
+        <div class="g-inner">
+            <h1 class="title">浅谈JS函数变量与函数参数</h1>
+        </div>
+    </div>
+    <div class="g-bd">
+        <div class="g-inner">
+            <div class="item">
+                <h3 class="title">1.函数变量声明提前</h3>
+                <p class="text">先上一段代码</p>
+                <pre>
+                    function doTest(){
+                        <span class="result">console.log(test);//输出undefined</span>
+                        var test='hello world';
+                    }
+                    doTest();
+                </pre>
+                <p class="text">
+                    可以看出函数输出undefined，为什么会输出undefined，因为变量被提前声明！变量被提前到哪里声明的？当变量被声明时，
+                    声明会被提升到它所在函数的顶部，并被赋予undefined值。所有一个好的代码规范是，尽量将所有的函数里面的变量都放到函数的
+                    头部进行声明，以免造成混淆。
+                </p>
+                <p class="text">
+                    其实，javascript引擎将函数内的变量保存到了一个叫“执行环境对象”的这个对象，函数参赛也被保存在这个对象中，接下来会讲解到。
+                    每个函数在执行的过程中，会产生一个新的执行环境，”执行环境“就是运行中的函数的意思，它不是对象。而”执行环境对象“是”执行环境“的
+                    ECMA标准实现。在javascript引擎中，执行环境对象是一种对象。如下表：
+                </p>
+                <table>
+                    <thead>
+                        <tr><th>代码</th><th>执行环境对象</th></tr>            
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>var test="hello world"</td>
+                            <td>{test:"hello world"}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="item">
+                <h3 class="title">2.函数参数的初始化</h3>
+                <p class="text">提个问题：函数参数是什么时候被初始化的？上段代码</p>
+                <pre>
+                    var test="test is assigned";
+                    function doTest(test){
+                        <span class="result">console.log(test);//输出the arg test is assigned</span>
+                        var test;
+                        <span class="result">console.log(test);输出the arg test is assigned</span>
+                    }
+                    doTest('the arg test is assigned');
+                </pre>
+                <p class="text">两次都输出了the arg test is assigned.很奇怪？怎么做到的？</p>
+                <p class="text">
+                    javascript引擎在进入作用域时，会对代码进行两轮处理，第一轮，初始化变量，第二轮，执行代码，这就是为什么之前函数变量会被提前
+                    声明的原因。在初始化变量时又是分三步走的
+                    <ul>
+                        <li>（1）声明并初始化函数参赛</li>
+                        <li>（2）声明局部变量，但并不初始化他们（所以他们的值为undefined）</li>
+                        <li>（3）声明并初始化函数</li>
+                    </ul>
+                </p>
+                <p class="text">这就能解释为什么输出两次‘the arg test is assigned‘。因为函数先初始化的参赛，所以函数里面的变量声明是多余的。</p>
+                <p class="text">函数参赛其实也被保存到了“执行环境对象”中，所以上面的代码，执行环境对象中只有一个属性test。</p>
+            </div>
+            
+            <div class="item">
+                <h3 class="title">3.函数参数是按值传递还是按引用传递</h3>
+                <p class="text">结论：对于数字、字符串等是将它们的值传递给了函数参数，函数参数的改变不会影响函数外部的变量。
+            对于数组和对象等是将对象(数组)的变量的值传递给了函数参数，这个变量保存的指向对象(数组)的地址。
+            当函数改变这个地址指向的对象(数组)的内容时，同时也改变了函数外部变量指向的对象(数组)的内容；当函数改变的是变量的地址时，
+            实际就与函数外部的变量失去了联系，变成了完全不同的对象了，不会对函数外部对象造成改变。</p>
+                <p class="text">上段代码更有效</p>
+                <pre>
+                    var test="test";
+                    function doTest(test){
+                        test="hello world"
+                    }
+                    doTest(test);
+                   <span class="result"> console.log(test);//输出test</span>
+                   
+                   var test={name:"test"};
+                    function doTest(test){
+                        test.name="hello world";
+                    }
+                    doTest(test);
+                    <span class="result">console.log(test.name);//输出hello world</span>
+                    
+                    var test={name:"test"};
+                    function doTest(test){
+                    test={name:"hello world"};
+                    }
+                    doTest(test);
+                    <span class="result">console.log(test.name);//输出test</span>
+                </pre>
+                <p class="text">结尾两个实现的对照结果很有意思吧！因为对象数组传递的是地址，当改变test.name时，两个变量还是指向同一个地址，
+                    所以name会变成“hello world”，而直接对test进行赋值，就会给函数参数一个新地址，也就是给“执行环境对象”的test属性一个新地址，
+                    这就切断了两个变量的关联，所以“test还是test”，做回自己。</p>
+                <p class="text">本文主要参考《单页web应用》第二章，以及网上看到的关于函数参数引用还是值传递的博文而写成。</p>
+            </div>
+        </div>
+    </div>
+    <div class="g-ft" style="line-height:60px;">
+        <div class="g-inner">
+            第一篇技术博客就这么完成了，望能持之以恒，再接再厉。
+        </div>
+    </div>
+</body>
+</html>

@@ -3,8 +3,36 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
+    <style>
+         ul{
+             list-style:none;
+         }
+         li{
+             width:120px;
+             line-height: 30px;
+         }
+         a{
+             color:#333;
+             font-size: 18px;
+         }
+    </style>
 </head>
 <body>
-	hello world
+    <ul>
+        <li><a href="http://www.1tai.com">官网</a></li>
+        <li><a href="http://online.1tai.com">直播课</a></li>
+        <li><a href="http://morning2.v1.1tai.com">管理后台</a></li>
+        <li><a href="http://localhost:5000">Doremi</a></li>
+    </ul>
+    <script>
+        var a=document.querySelectorAll('a');
+        for(var i=0,len=a.length;i<len;i++){
+            a[i].addEventListener('click',function(){
+               alert('hello'); 
+            });
+        }
+        chrome.tabs.create({url:'http://www.1tai.com'});
+        console.log(chrome);
+    </script>
 </body>
 </html>

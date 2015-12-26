@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>抽奖啦</title>
+	<link rel="stylesheet" href="../static/css/lucky.css">
+	<script src="/study/bower_components/jquery/dist/jquery.js"></script>
+	<script src="alloyStick_0.4.js"></script>
+	<script src="alloyengine_0.4.js"></script>
+</head>
+<body>
+	<div class="g-bd">
+		<div class="lucky"></div>
+		<div class="start">开始</div>
+		<div class="all">
+			<div class="wrap"></div>
+		</div>
+		<div class="result"></div>
+	</div>
+	<script>
+	$(function(){
+		var intervalId=0;
+		function getAllPerson(){
+			var luckies=['续集号','伟哥','赵鹏','你','我','他','中原一点红','宇宙一点白','续集号','伟哥','赵鹏','你','我','他','中原一点红','宇宙一点白','续集号','伟哥','赵鹏','你','我','他','中原一点红','宇宙一点白','续集号','伟哥','赵鹏','你','我','他','中原一点红','宇宙一点白','续集号','伟哥','赵鹏','你','我','他','中原一点红','宇宙一点白','续集号','伟哥','赵鹏','你','我','他','中原一点红','宇宙一点白','续集号','伟哥','赵鹏','你','我','他','中原一点红','宇宙一点白','续集号','伟哥','赵鹏','你','我','他','中原一点红','宇宙一点白','续集号','伟哥','赵鹏','你','我','他','中原一点红','宇宙一点白','续集号','伟哥','赵鹏','你','我','他','中原一点红','宇宙一点白','续集号','伟哥','赵鹏','你','我','他','中原一点红','宇宙一点白'];
+			var html='';
+			for(var i=0;i<luckies.length;i++){
+				html+='<div class="person">'+luckies[i]+'</div>';	
+			}
+			$('.all .wrap').html(html);
+		}
+		getAllPerson();
+		function start(){
+			$('.start').addClass('shink');
+			for(var i=3;i>=1;i--){
+				(function(i){
+					setTimeout(function(){
+						$('.start').html('<div class="num shink">'+i+'</div>');
+					},(4-i)*1000);
+				})(i);
+			}
+			setTimeout(function(){
+				$('.start').html('奔跑吧');
+				intervalId=setInterval(function(){
+					$('.person:first-child').appendTo($('.wrap'));
+				},5);
+			},4000);
+		}
+		$('.start').one("click",start);
+		$('body').bind("keydown",function(e){
+			console.log(e.keyCode); 	
+			if(e.keyCode===32){
+				clearInterval(intervalId);
+				$('.start').html('客官，您中奖了！');
+				var random=(parseInt(Math.random()*10)+5)*30;
+				var top='-'+random+'px';
+				$('.wrap').css('transition','top 3s ease-out').css('top',top);
+				var index=(random+180)/30;
+				setTimeout(function(){
+					$('.all').hide();
+					var luncyPersons=Array.prototype.slice.call($('.person').clone(),index,index+5);
+					$('.result').html(luncyPersons).show(300);
+				},4000);
+			}
+		});
+	});
+	</script>
+</body>
+</html>

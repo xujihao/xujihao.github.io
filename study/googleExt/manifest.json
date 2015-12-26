@@ -3,8 +3,10 @@
 	"version":"1.0",
 	"manifest_version":2,
 	"description":"我的测试",
+    "permissions":["tabs"],
 	"browser_action":{
 		"default_icon":"icon.png",
-		"popup":"popup.html"
+		"default_popup":"popup.html",
+        "default_title":"续集号"
 	}
 }
