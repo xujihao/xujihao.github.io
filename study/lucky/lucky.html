@@ -5,28 +5,82 @@
 	<title>抽奖啦</title>
 	<link rel="stylesheet" href="../static/css/lucky.css">
 	<script src="/study/bower_components/jquery/dist/jquery.js"></script>
-	<script src="alloyStick_0.4.js"></script>
-	<script src="alloyengine_0.4.js"></script>
 </head>
 <body>
 	<div class="g-bd">
-		<div class="lucky"></div>
-		<div class="start">开始</div>
-		<div class="all">
+		<div class="start">立即抽奖</div>
+		<div class="all left">
 			<div class="wrap"></div>
 		</div>
-		<div class="result"></div>
+        <div class="all right">
+            <div class="wrap"></div>
+        </div>
+		<div class="result">
+            <h3 class="title">中奖名单</h3>
+            <div class="desc">
+                THEONE钢琴大赛<br>
+                颁奖晚会抽奖平台
+            </div>
+            <div class="sub_title">
+                <span>恭喜以下用户</span>
+            </div>
+            <div class="persons">
+                
+            </div>
+        </div>
 	</div>
 	<script>
 	$(function(){
-		var intervalId=0;
+		var intervalId=0,
+            luckies=[];
 		function getAllPerson(){
-			var luckies=['续集号','伟哥','赵鹏','你','我','他','中原一点红','宇宙一点白','续集号','伟哥','赵鹏','你','我','他','中原一点红','宇宙一点白','续集号','伟哥','赵鹏','你','我','他','中原一点红','宇宙一点白','续集号','伟哥','赵鹏','你','我','他','中原一点红','宇宙一点白','续集号','伟哥','赵鹏','你','我','他','中原一点红','宇宙一点白','续集号','伟哥','赵鹏','你','我','他','中原一点红','宇宙一点白','续集号','伟哥','赵鹏','你','我','他','中原一点红','宇宙一点白','续集号','伟哥','赵鹏','你','我','他','中原一点红','宇宙一点白','续集号','伟哥','赵鹏','你','我','他','中原一点红','宇宙一点白','续集号','伟哥','赵鹏','你','我','他','中原一点红','宇宙一点白','续集号','伟哥','赵鹏','你','我','他','中原一点红','宇宙一点白'];
-			var html='';
-			for(var i=0;i<luckies.length;i++){
-				html+='<div class="person">'+luckies[i]+'</div>';	
-			}
-			$('.all .wrap').html(html);
+            $.ajax({
+                url:"/live/room/members?room=100&secret=UDon'tKnowThis",
+                success:function(resp){
+                    if(resp.meta.code==1){
+                        lists=resp.data.roomMembers.list;
+                        var len=lists.length,
+                            lastTimer=localStorage.getItem('winner');
+                        lastTimer=lastTimer?lastTimer.split(','):[];   
+              
+                        for(var i=0;i<len;i++){
+                            var tempArr=[],tempLucky={};
+                            tempLucky=lists[i];
+                            tempArr.push(tempLucky.userId);
+                            tempArr.push(tempLucky.nickname || tempLucky.mail);
+                            tempArr.push(tempLucky.avatar.url);
+                            tempArr.push(tempLucky.mobile);
+                            if(lastTimer.indexOf(tempLucky.userId+'')===-1){
+                                luckies.push(tempArr);
+                            } 
+                        }
+                       
+                        // for(var m=1;m<200;m++){
+                        //     if(lastTimer.indexOf(m+'')===-1){
+                        //         luckies.push([m,m,m,]);
+                        //     } 
+                        // }
+                        for(var i=0;i<3;i++){
+                            luckies.sort(function(val1,val2){
+                                return Math.random()-Math.random(); 
+                            });
+                        }
+                        var html='';
+                        for(var i=0;i<luckies.length;i++){
+                            html+='<div class="person" data-index="'+i+'">'+luckies[i][1]+'</div>';	
+                        }
+                        $('.all .wrap').html(html);
+                    }
+                    else{
+                        alert('获取在线用户失败');
+                    }
+                },
+                timeout:function(){
+                    alert('获取在线用户超时');
+                }
+            });
+
+
 		}
 		getAllPerson();
 		function start(){
@@ -39,26 +93,48 @@
 				})(i);
 			}
 			setTimeout(function(){
-				$('.start').html('奔跑吧');
+				$('.start').html('Good Luck');
 				intervalId=setInterval(function(){
-					$('.person:first-child').appendTo($('.wrap'));
+					$('.left .person:first-child').appendTo($('.left .wrap'));
+                    $('.right .person:first-child').appendTo($('.right .wrap'));
 				},5);
 			},4000);
 		}
 		$('.start').one("click",start);
 		$('body').bind("keydown",function(e){
-			console.log(e.keyCode); 	
+            console.log(this._click);
+            if(this._click) {
+               return false; 
+            } 	
+            
 			if(e.keyCode===32){
+                this._click=true;
 				clearInterval(intervalId);
-				$('.start').html('客官，您中奖了！');
-				var random=(parseInt(Math.random()*10)+5)*30;
+				// $('.start').html('客官，您中奖了！');
+				var random=(parseInt(Math.random()*10)+5)*70;
 				var top='-'+random+'px';
 				$('.wrap').css('transition','top 3s ease-out').css('top',top);
-				var index=(random+180)/30;
+				var index=(random+350)/70;
+                // console.log(index);
 				setTimeout(function(){
-					$('.all').hide();
-					var luncyPersons=Array.prototype.slice.call($('.person').clone(),index,index+5);
-					$('.result').html(luncyPersons).show(300);
+					$('.all,.start').hide();
+                    // console.log($('.left .person').clone());
+					var luncyPersons=Array.prototype.slice.call($('.left .person').clone(),index,index+5);
+					$('.result .persons').html(luncyPersons);
+                    $('.result').show(300,function(){
+                        var persons=$('.result .person');
+                        var userIds=localStorage.getItem('winner')?localStorage.getItem('winner').split(','):[];
+                        for(var i=0;i<persons.length;i++){
+                            var index=persons.eq(i).data('index');
+                            var mobile=luckies[index][3]?luckies[index][3]:'00000000000';
+                            persons.eq(i).append('<img class="img" src="iconfont-gift.png" />');
+                            //persons.eq(i).append('<img class="img" src="'+luckies[index][2]+'!/fwfh/50X50" />');
+                            persons.eq(i).append('<span class="mobile">'+mobile.replace(/^(\d{3})\d{4}(\d{4})$/,'$1****$2')+'</span>');
+                            userIds.push(luckies[index][0]);   
+                        }
+                        localStorage.setItem('winner',userIds);
+                    });
+                    
 				},4000);
 			}
 		});
