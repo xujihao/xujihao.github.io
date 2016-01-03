@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Scroll</title>
+    <link rel="stylesheet" href="/study/static/css/reset.css">
+    <style>
+        .ctn{
+            top:100px;
+            left: 100px;
+            height: 400px;
+            width: 200px;
+            padding-left: 20px;
+            background: #ff0;
+            overflow: hidden;
+            position: relative;
+        }
+        /*ul::-webkit-scrollbar{
+            display: none;//另一种遮蔽滚动条的方法
+        }*/
+        .wrap{
+            width:100%;
+            height: 100%;
+            overflow: auto;
+        }
+        .ctn:after{
+            content: '';
+            position: absolute;
+            right: 0;
+            top:0;
+            bottom: 0px;
+            width:10px;
+            height: 100%;
+            background: #fff;
+            z-index: 10;
+        }
+        ul.wrap li{
+            line-height: 32px;
+        }
+    </style>
+</head>
+<body>
+   <div class="ctn">
+        <ul class="wrap">
+            <li>111111111</li>
+            <li>22222222</li>
+            <li>33333333</li>
+            <li>44444444</li>
+            <li>55555555</li>
+            <li>76666666</li>
+            <li>88888888888</li>
+            <li>88888888888</li>
+            <li>88888888888</li>
+            <li>88888888888</li>
+            <li>88888888888</li>
+            <li>88888888888</li>
+            <li>88888888888</li>
+            <li>88888888888</li>
+            <li>88888888888</li>
+            <li>88888888888</li>
+            <li>88888888888</li>
+            <li>88888888888</li>
+            <li>88888888888</li>
+            <li>88888888888</li>
+        </ul>
+    </div>
+    <script>
+        var wrap=document.querySelector('.wrap');
+        var eventType=!document.mozHidden?'mousewheel':'DOMMouseScroll';
+        wrap.addEventListener(eventType,function(event){
+            var delta=event.wheelDelta;
+            console.log(wrap.scrollTop);
+            if(delta>0 && wrap.scrollTop==0){
+                event.preventDefault();
+            }
+            if(delta<0 && wrap.scrollTop>=wrap.scrollHeight-wrap.clientHeight){
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
