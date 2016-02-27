@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>miniJQ</title>
+	<script src="../static/js/miniJQ.js"></script>
+</head>
+<body>
+	<p class="test">Hello World</p>
+	<p class="test">Hello World</p>
+	<p class="test"><span>Hello World</span></p>
+	<p class="test"><span>inner</span></p>
+	<script>
+	$('span','p').bind('click',function(){
+		alert('hello');
+	}).addClass('alert').addClass('nihao').removeClass('alert').html('lsfjslfjsl;f').data('index',1);
+	console.log($('span','p').data('index'));
+	</script>
+</body>
+</html>
